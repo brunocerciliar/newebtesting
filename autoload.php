@@ -12,3 +12,5 @@ spl_autoload_register(function($class) {
     if(is_file($inc = str_replace(DS.DS,DS,$app.DS.$path)))
         require_once($inc);
 });
+
+require "Core/Helpers/route.php";

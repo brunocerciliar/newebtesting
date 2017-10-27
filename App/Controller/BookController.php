@@ -12,10 +12,10 @@ class BookController extends Controller
         $this->model = new Model;
     }
 
-    public function invoke($id)
+    public function invoke($book = "")
     {
-        echo "Eu sou o ID" . $id;
-        if (!isset($_GET['book']))
+        // var_dump($book);
+        if ($book == "")
         {
             $myName = "bruno";
             $books = $this->model->getBookList();
@@ -23,10 +23,8 @@ class BookController extends Controller
         }
         else
         {
-            $book = $this->model->getBook($_GET['book']);
+            $book = $this->model->getBook($book);
             return $this->view('book.view', compact('book'));
         }
     }
 }
-
-?>

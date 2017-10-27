@@ -1,6 +1,6 @@
 <?php
 
-	$debug = true;
+	$debug = false;
 	if($debug)
 	{
 		error_reporting(6143);
@@ -12,17 +12,10 @@
 
 	session_start();
 	header('Content-type: text/html; charset=UTF-8', true);
-
-	extract($_GET, EXTR_PREFIX_ALL, 'get');
-	extract($_POST, EXTR_PREFIX_ALL, 'post');
-	extract($_SERVER, EXTR_PREFIX_ALL, 'server');
-
-	$router = new \Core\Misc\Route;
 	
 	#Adicione as rotas do seu projeto
-	$router->add("personagem/{nome}/visualizar", "BookController@Adicionar");
-	$router->add("personagem/{nome}/mapa/{mapa}", "BookController@Adicionar");
-	$router->add("bruno/adicionar/{id}", "BookController@invoke");
+	$router->add("bruno/book/{book}", "BookController@invoke");
+	$router->add("bruno/books", "BookController@invoke");
 
 	#Execute a validação das rotas ( não mexer )
 	$router->get($server_REQUEST_URI);

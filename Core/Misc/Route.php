@@ -32,15 +32,15 @@ class Route {
 
 	private function set($uri, $route)
 	{
-		$uri = preg_replace('/({[a-zA-Z0-9]+\?})/', 'possible', $uri);
-		$uri = preg_replace('/({[a-zA-Z0-9]+})/', 'any', $uri);
+		$uri = preg_replace('/({[a-zA-Z0-9 ]+\?})/', 'possible', $uri);
+		$uri = preg_replace('/({[a-zA-Z0-9 ]+})/', 'any', $uri);
 
 		$this->routes[$uri] = $route;
 	}
 
 	public function get($uri)
 	{
-		$uri = preg_replace("/.*public\//", "", $uri);
+		$uri = preg_replace("/.*public\//", "", urldecode($uri));
 
 		foreach($this->routes as $routeUri => $route)
 		{
@@ -60,15 +60,15 @@ class Route {
 	{
 		if(substr($uri, -1) == '/') $uri = substr($uri, 0, -1);
 		$pattern = str_replace('/', '\/', $uri);
-		$pattern = str_replace('any', '([a-zA-Z0-9]+)', $pattern);
-		$pattern = str_replace('\/possible', '(\/[a-zA-Z0-9]+|)', $pattern);
+		$pattern = str_replace('any', '([a-zA-Z0-9 ]+)', $pattern);
+		$pattern = str_replace('\/possible', '(\/[a-zA-Z0-9 ]+|)', $pattern);
 		return $pattern;
 	}
 
 	private function getParams($uri, $route, $pattern)
 	{
 		preg_match("/^{$pattern}$/", $uri, $paramContent);
-		preg_match_all("/({[a-zA-Z0-9]+(\?|)})/", $route->raw, $params, PREG_SET_ORDER);
+		preg_match_all("/({[a-zA-Z0-9 ]+(\?|)})/", $route->raw, $params, PREG_SET_ORDER);
 
 		foreach($params as $k => $param)
 		{
