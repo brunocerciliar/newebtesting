@@ -1,0 +1,5 @@
+RewriteEngine on
+
+RewriteRule ^App/?$ - [F,L]
+RewriteRule ^Core/?$ - [F,L]
+RewriteRule ^autoload.php?$ - [F,L]
